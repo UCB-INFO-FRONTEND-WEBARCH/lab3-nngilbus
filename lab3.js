@@ -35,10 +35,9 @@ const analyticsData = [
    * Return "Good" if avgSessionDuration >= 200, otherwise "Low"
    * @param {Object} user - User object with avgSessionDuration property
    * @returns {string} "Good" or "Low"
-   */
+  */
   const getEngagementLevel = (user) => {
-    // TODO: use if/else or ternary operator
-    // Hint: Check if user.avgSessionDuration >= 200
+    return user.avgSessionDuration >= 200 ? "Good" : "Low";
   };
   
   /**
@@ -46,10 +45,18 @@ const analyticsData = [
    * Find the user with the longest avgSessionDuration
    * @param {Array} data - Array of user objects
    * @returns {string} Name of user with longest session
-   */
+  */
   const findLongestSessionUser = (data) => {
-    // TODO: use for loop
-    // Hint: Keep track of max duration and corresponding user name
+    let maxDuration = -Infinity;
+    let userWithMax = '';
+    for (let i = 0; i < data.length; i++) {
+      const { avgSessionDuration, name } = data[i];
+      if (avgSessionDuration > maxDuration) {
+        maxDuration = avgSessionDuration;
+        userWithMax = name;
+      }
+    }
+    return userWithMax;
   };
   
   /**
@@ -57,10 +64,9 @@ const analyticsData = [
    * Format each user's session count
    * @param {Array} data - Array of user objects
    * @returns {Array} Array of formatted strings like "Alice: 3 sessions"
-   */
+  */
   const formatSessions = (data) => {
-    // TODO: use map
-    // Hint: Use template literal `${user.name}: ${user.totalSessions} sessions`
+    return data.map(user => `${user.name}: ${user.totalSessions} sessions`);
   };
   
   /**
@@ -68,10 +74,11 @@ const analyticsData = [
    * Get names of users with >= 5 sessions
    * @param {Array} data - Array of user objects
    * @returns {Array} Array of active user names
-   */
+  */
   const getActiveUsers = (data) => {
-    // TODO: use filter + map
-    // Hint: First filter users with totalSessions >= 5, then map to get names
+    return data
+      .filter(user => user.totalSessions >= 5)
+      .map(user => user.name);
   };
   
   /**
@@ -79,10 +86,9 @@ const analyticsData = [
    * Calculate total sessions across all users
    * @param {Array} data - Array of user objects
    * @returns {number} Sum of all totalSessions
-   */
+  */
   const getTotalSessions = (data) => {
-    // TODO: use reduce
-    // Hint: Accumulate user.totalSessions
+    return data.reduce((sum, user) => sum + user.totalSessions, 0);
   };
   
   // ========================================
